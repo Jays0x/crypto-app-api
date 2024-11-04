@@ -40,27 +40,29 @@ export default function Home() {
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border border-gray-200">
+    <div className="overflow-x-auto mb-10">
+      <table className="w-full m-auto  bg-white">
         <thead>
           <tr className="text-left text-[14px]">
-            <th className="px-4 py-2 border-b">#</th>
-            <th className="px-4 py-2 border-b">Name</th>
-            <th className="px-4 py-2 border-b">Symbol</th>
-            <th className="px-4 py-2 border-b">Price (NGN)</th>
-            <th className="px-4 py-2 border-b">24H</th>
-            <th className="px-4 py-2 border-b">Market Cap (USD)</th>
+            <th className="px-24 py-4 border-b">#</th>
+            <th className="px-4 py-4 border-b">Name</th>
+            <th className="px-4 py-4 border-b">Symbol</th>
+            <th className="px-4 py-4 border-b">Price (USD)</th>
+            <th className="px-4 py-4 border-b">24H</th>
+            <th className="px-4 py-4 border-b">Volume (24H)</th>
+            <th className="px-4 py-4 border-b">Market Cap (USD)</th>
           </tr>
         </thead>
-        <tbody>
-          {data.slice(0, 5).map((asset) => (
-            <tr key={asset.id} className="text-left text-[14px]">
-              <td className="px-4 py-2 border-b">{asset.rank}</td>
-              <td className="px-4 py-2 border-b">{asset.name}</td>
-              <td className="px-4 py-2 border-b">{asset.symbol}</td>
-              <td className="px-4 py-2 border-b">${Number(asset.priceUsd).toFixed(2)}</td>
-              <td className={`${ asset.changePercent24Hr < 0 ? 'text-red-600' : 'text-green-500' } px-4 py-2 border-b `}>{Number(asset.changePercent24Hr).toFixed(2)}</td>
-              <td className="px-4 py-2 border-b">${Number(asset.marketCapUsd).toFixed(2)}</td>
+        <tbody className="">
+          {data.slice(0, 20).map((asset) => (
+            <tr key={asset.id} className="text-left text-[14px] hover:bg-[#f5f5f5] py-4 pl-10 m-auto border-b-2">
+              <td className="px-24 py-4">{asset.rank}</td>
+              <td className="px-4 py-4">{asset.name}</td>
+              <td className="px-4 py-4">{asset.symbol}</td>
+              <td className="px-4 py-4">${Number(asset.priceUsd).toFixed(2)}</td>
+              <td className={`${ asset.changePercent24Hr < 0 ? 'text-red-600' : 'text-green-500' } px-4 py-4`}>{Number(asset.changePercent24Hr).toFixed(2)}</td>
+              <td className="px-4 py-4">${Number(asset.volumeUsd24Hr).toFixed(2)}</td>
+              <td className="px-4 py-4">${Number(asset.marketCapUsd).toFixed(2)}</td>
             </tr>
           ))}
         </tbody>
