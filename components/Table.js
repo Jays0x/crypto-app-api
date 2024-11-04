@@ -5,7 +5,7 @@ export default function Home() {
   const [data, setData] = useState([]);
   const [displayData, setDisplayData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [itemsToShow, setItemsToShow] = useState(50); // Initially show 50 items
+  const [itemsToShow, setItemsToShow] = useState(50); // Start with 50 items shown
 
   const url = 'https://api.coincap.io/v2/assets';
   const options = { method: 'GET' };
@@ -23,8 +23,8 @@ export default function Home() {
         }
 
         const result = await response.json();
-        setData(result.data); // Set 'data' to the 'data' array within the response
-        setDisplayData(result.data.slice(0, itemsToShow)); // Show initial 50 items
+        setData(result.data); // Store all data in 'data'
+        setDisplayData(result.data.slice(0, itemsToShow)); // Initially show 50 items
         setLoading(false);
 
       } catch (error) {
@@ -38,17 +38,18 @@ export default function Home() {
 
   const loadMore = () => {
     const nextItemsToShow = itemsToShow + 50;
-    setDisplayData(data.slice(0, nextItemsToShow)); // Show more items
+    setDisplayData(data.slice(0, nextItemsToShow)); // Append 50 more items to the displayed data
     setItemsToShow(nextItemsToShow);
   };
 
-  if (loading) {
-    return <div>LOADING...</div>;
-  }
+  // if (loading) {
+  //   return <div>LOADING...</div>;
+  // }
 
   return (
     <div className="overflow-x-auto mb-10">
       <table className="w-full m-auto bg-white">
+        {/* Static Table Header */}
         <thead>
           <tr className="text-left text-[14px]">
             <th className="px-24 py-4 border-b">#</th>
@@ -60,6 +61,8 @@ export default function Home() {
             <th className="px-4 py-4 border-b">Market Cap (USD)</th>
           </tr>
         </thead>
+
+        {/* Dynamic Table Body */}
         <tbody>
           {displayData.map((asset) => (
             <tr key={asset.id} className="text-left text-[14px] hover:bg-[#f5f5f5] py-4 pl-10 m-auto border-b-2">
@@ -67,7 +70,7 @@ export default function Home() {
               <td className="px-4 py-4">{asset.name}</td>
               <td className="px-4 py-4">{asset.symbol}</td>
               <td className="px-4 py-4">${Number(asset.priceUsd).toFixed(2)}</td>
-              <td className={`${ asset.changePercent24Hr < 0 ? 'text-red-600' : 'text-green-500' } px-4 py-4`}>
+              <td className={`${asset.changePercent24Hr < 0 ? 'text-red-600' : 'text-green-500'} px-4 py-4`}>
                 {Number(asset.changePercent24Hr).toFixed(2)}
               </td>
               <td className="px-4 py-4">${Number(asset.volumeUsd24Hr).toFixed(2)}</td>
@@ -76,7 +79,8 @@ export default function Home() {
           ))}
         </tbody>
       </table>
-      
+
+      {/* Load More Button */}
       {itemsToShow < data.length && (
         <div className="flex justify-center mt-10">
           <button
@@ -88,11 +92,22 @@ export default function Home() {
         </div>
       )}
 
+      {
+        itemsToShow.length < 0 && 
+          <div className="flex justify-center mt-10">
+            <p>No data available</p>
+          </div>
+        
+      }
+
+      {/* End of List Message */}
       {itemsToShow >= data.length && (
         <div className="flex justify-center mt-10">
           <p>That's the end of the list</p>
         </div>
       )}
+      
+      
     </div>
   );
 }
