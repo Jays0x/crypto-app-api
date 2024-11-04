@@ -54,7 +54,7 @@ export default function Home() {
           </tr>
         </thead>
         <tbody className="">
-          {data.slice(0, 20).map((asset) => (
+          {data.slice(0, 50).map((asset) => (
             <tr key={asset.id} className="text-left text-[14px] hover:bg-[#f5f5f5] py-4 pl-10 m-auto border-b-2">
               <td className="px-24 py-4">{asset.rank}</td>
               <td className="px-4 py-4">{asset.name}</td>
