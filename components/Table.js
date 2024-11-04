@@ -103,7 +103,7 @@ export default function Home() {
       {/* End of List Message */}
       {itemsToShow >= data.length && (
         <div className="flex justify-center mt-10">
-          <p>That's the end of the list</p>
+          <p>That&apos;s the end of the list</p>
         </div>
       )}
       
